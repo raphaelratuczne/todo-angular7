@@ -22,5 +22,9 @@ mat-toolbar {
   }
   .txt-tarefa {
     flex: auto;
+
+    &.feito {
+      text-decoration: line-through;
+    }
   }
 }
