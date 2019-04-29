@@ -1,0 +1,26 @@
+mat-toolbar {
+  height: 100px;
+
+  .titulo {
+    margin-right: 20px;
+  }
+
+  .input-tollbar {
+    flex: auto;
+  }
+
+  .botao {
+    margin-left: 20px;
+  }
+}
+
+.meu-card {
+  margin: 20px;
+
+  .check-tarefa {
+    margin-right: 15px;
+  }
+  .txt-tarefa {
+    flex: auto;
+  }
+}
