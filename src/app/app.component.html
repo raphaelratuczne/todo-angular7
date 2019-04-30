@@ -9,6 +9,9 @@
 <mat-card class="meu-card">
   <mat-card-header>
     <mat-card-title>Lista de tarefas</mat-card-title>
+    <button class="botao" mat-button color="primary" (click)="removerCompletas()">Remover tarefas completas</button>
+
+    <button class="botao" mat-button color="primary" (click)="removerTodas()">Remover todas as tarefas</button>
   </mat-card-header>
 
   <mat-card-content>
@@ -19,7 +22,7 @@
         <button mat-icon-button (click)="editar(i)">
           <mat-icon aria-label="Editar">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="openDialog(i)">
+        <button mat-icon-button (click)="excluirItem(i)">
           <mat-icon aria-label="Excluir">delete</mat-icon>
         </button>
       </mat-list-item>

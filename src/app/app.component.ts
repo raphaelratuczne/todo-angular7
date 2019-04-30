@@ -34,21 +34,46 @@ export class AppComponent {
     this.campo = this.lista[i].texto;
   }
 
-  openDialog(index:number): void {
+  public excluirItem(i:number) {
+    this.openDialog('Tem certeza que deseja ecluir?', () => {
+      this.excluir(i);
+    });
+  }
+
+  openDialog(msg:string, callback:any): void {
     let dialogRef = this.dialog.open(DialogConfirmacao, {
       width: '250px',
-      data: { i:index }
+      data: { mensagem:msg }
     });
 
-    dialogRef.afterClosed().subscribe((result:number) => {
-      if(result >= 0) {
-        this.excluir(result);
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        callback();
       }
     });
   }
 
   public excluir(i:number) {
     this.lista.splice(i,1);
+  }
+
+  public removerCompletas() {
+    this.openDialog('Tem certeza que deseja remover as tarefas completas?', () => {
+      let n = this.lista.length - 1;
+      if(n > 0) {
+        for(let i = n; i >= 0; i--) {
+          if (this.lista[i].feito) {
+            this.excluir(i);
+          }
+        }
+      }
+    });
+  }
+
+  public removerTodas() {
+    this.openDialog('Tem certeza que deseja remover as tarefas?', () => {
+      this.lista = [];
+    });
   }
 }
 
@@ -57,10 +82,10 @@ export class AppComponent {
   selector: 'dialog-confirmacao',
   template: `
     <h2 mat-dialog-title>Confirmar exclusão</h2>
-    <mat-dialog-content>Tem certeza que deseja ecluir?</mat-dialog-content>
+    <mat-dialog-content>{{data.mensagem}}</mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="-1">Cancelar</button>
-      <button mat-button [mat-dialog-close]="data.i">Confirmar</button>
+      <button mat-button [mat-dialog-close]="false">Cancelar</button>
+      <button mat-button [mat-dialog-close]="true">Confirmar</button>
     </mat-dialog-actions>
   `
 })
